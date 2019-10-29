@@ -25,9 +25,9 @@
             android:title="@string/menu_statistic" />
 
         <item
-            android:id="@+id/nav_accounts"
+            android:id="@+id/nav_users"
             android:icon="@drawable/ic_account_circle_black_24dp"
-            android:title="@string/menu_accounts" />
+            android:title="@string/menu_users" />
         <item
             android:id="@+id/nav_tables"
             android:icon="@drawable/ic_tablet_black_24dp"

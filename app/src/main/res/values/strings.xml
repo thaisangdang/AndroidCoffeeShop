@@ -11,12 +11,12 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_order">Order</string>
-    <string name="menu_orderHistory">Order History</string>
-    <string name="menu_statistic">Statistic</string>
-    <string name="menu_accounts">Accounts</string>
-    <string name="menu_drinks">Drinks/Foods</string>
-    <string name="menu_tables">Tables</string>
-    <string name="menu_changePassword">Change Password</string>
-    <string name="menu_logout">Logout</string>
+    <string name="menu_orderHistory">Lịch sử Order</string>
+    <string name="menu_statistic">Thống kê</string>
+    <string name="menu_users">TK Nhân viên</string>
+    <string name="menu_drinks">Nước/Món</string>
+    <string name="menu_tables">Dánh sách bàn</string>
+    <string name="menu_changePassword">Đổi mật khẩu</string>
+    <string name="menu_logout">Đăng xuất</string>
 
 </resources>

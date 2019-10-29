@@ -36,10 +36,10 @@
         tools:layout="@layout/fragment_drinks" />
 
     <fragment
-        android:id="@+id/nav_accounts"
-        android:name="iuh.doan.coffeeshop.ui.accounts.AccountsFragment"
-        android:label="@string/menu_accounts"
-        tools:layout="@layout/fragment_accounts" />
+        android:id="@+id/nav_users"
+        android:name="iuh.doan.coffeeshop.ui.users.UsersFragment"
+        android:label="@string/menu_users"
+        tools:layout="@layout/fragment_users" />
 
     <fragment
         android:id="@+id/nav_tables"

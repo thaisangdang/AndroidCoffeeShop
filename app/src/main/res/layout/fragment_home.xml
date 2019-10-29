@@ -68,10 +68,10 @@
                 android:drawableTop="@drawable/icons8_investment_portfolio_96px"/>
 
             <Button
-                android:id="@+id/buttonAccountsMenu"
+                android:id="@+id/buttonUsersMenu"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:text="@string/menu_accounts"
+                android:text="@string/menu_users"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
                 android:drawableTop="@drawable/icons8_add_user_male_96px_1"/>
