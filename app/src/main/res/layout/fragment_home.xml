@@ -1,108 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".HomeActivity">
+    android:layout_height="match_parent"
+    tools:context="fragment.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="0,1">
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:text="@string/menu_home"/>
 
-        <TableRow
-            android:id="@+id/tableRow1"
+        <TableLayout
+            android:id="@+id/tableLayout1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1">
 
-            <Button
-                android:id="@+id/buttonOrderMenu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:text="@string/menu_order"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:drawableTop="@drawable/icons8_purchase_order_96px_1"/>
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/buttonOrderHistoryMenu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:text="@string/menu_orderHistory"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:drawableTop="@drawable/icons8_order_history_96px_2"/>
+                <Button
+                    android:id="@+id/buttonOrderMenu"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="@string/menu_order"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:drawableTop="@drawable/icons8_purchase_order_96px_1"/>
 
-        </TableRow>
+                <Button
+                    android:id="@+id/buttonOrderHistoryMenu"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="@string/menu_orderHistory"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:drawableTop="@drawable/icons8_order_history_96px_2"/>
 
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            </TableRow>
 
-            <Button
-                android:id="@+id/buttonStatisticMenu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:text="@string/menu_statistic"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:drawableTop="@drawable/icons8_investment_portfolio_96px"/>
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/buttonUsersMenu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:text="@string/menu_users"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:drawableTop="@drawable/icons8_add_user_male_96px_1"/>
+                <Button
+                    android:id="@+id/buttonStatisticMenu"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="@string/menu_statistic"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:drawableTop="@drawable/icons8_investment_portfolio_96px"/>
 
-        </TableRow>
+                <Button
+                    android:id="@+id/buttonUsersMenu"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="@string/menu_users"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:drawableTop="@drawable/icons8_add_user_male_96px_1"/>
 
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            </TableRow>
 
-            <Button
-                android:id="@+id/buttonTablesMenu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:text="@string/menu_tables"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:drawableTop="@drawable/icons8_restaurant_table_96px_1"/>
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/buttonDrinksMenu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:text="@string/menu_drinks"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:drawableTop="@drawable/icons8_cafe_96px_1"/>
+                <Button
+                    android:id="@+id/buttonTablesMenu"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="@string/menu_tables"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:drawableTop="@drawable/icons8_restaurant_table_96px_1"/>
 
-        </TableRow>
+                <Button
+                    android:id="@+id/buttonDrinksMenu"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:text="@string/menu_drinks"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:drawableTop="@drawable/icons8_cafe_96px_1"/>
 
-    </TableLayout>
+            </TableRow>
 
-</LinearLayout>
+        </TableLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

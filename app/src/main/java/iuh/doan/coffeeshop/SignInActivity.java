@@ -53,6 +53,7 @@ public class SignInActivity extends AppCompatActivity {
                             // get user information
                             progressDialog.dismiss();
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                            user.setId(dataSnapshot.getKey());
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 Toast.makeText(SignInActivity.this, "Sign in successfully!", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
