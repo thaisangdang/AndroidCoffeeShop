@@ -24,11 +24,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import iuh.doan.coffeeshop.fragment.DrinksFragment;
 import iuh.doan.coffeeshop.fragment.HomeFragment;
-import iuh.doan.coffeeshop.fragment.MoviesFragment;
-import iuh.doan.coffeeshop.fragment.NotificationsFragment;
+import iuh.doan.coffeeshop.fragment.OrderHistoryFragment;
+import iuh.doan.coffeeshop.fragment.StatisticFragment;
 import iuh.doan.coffeeshop.fragment.OrderFragment;
-import iuh.doan.coffeeshop.fragment.SettingsFragment;
+import iuh.doan.coffeeshop.fragment.TablesFragment;
+import iuh.doan.coffeeshop.fragment.UsersFragment;
 import iuh.doan.coffeeshop.helper.AuthenHelper;
 import iuh.doan.coffeeshop.helper.CircleTransform;
 
@@ -53,9 +55,11 @@ public class HomeActivity extends AppCompatActivity {
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
     private static final String TAG_ORDER = "order";
-    private static final String TAG_MOVIES = "movies";
-    private static final String TAG_NOTIFICATIONS = "notifications";
-    private static final String TAG_SETTINGS = "settings";
+    private static final String TAG_ORDERHISTORY = "orderhistory";
+    private static final String TAG_STATISTIC = "statistic";
+    private static final String TAG_TABLES = "tables";
+    private static final String TAG_DRINKS = "drinks";
+    private static final String TAG_USERS = "users";
     public static String CURRENT_TAG = TAG_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -131,9 +135,6 @@ public class HomeActivity extends AppCompatActivity {
                 .bitmapTransform(new CircleTransform(this))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imgProfile);
-
-        // showing dot next to notifications label
-        navigationView.getMenu().getItem(3).setActionView(R.layout.menu_dot);
     }
 
     /***
@@ -192,26 +193,26 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
-                // home
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 1:
-                // order
                 OrderFragment orderFragment = new OrderFragment();
                 return orderFragment;
             case 2:
-                // movies fragment
-                MoviesFragment moviesFragment = new MoviesFragment();
-                return moviesFragment;
+                OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
+                return orderHistoryFragment;
             case 3:
-                // notifications fragment
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                return notificationsFragment;
-
+                StatisticFragment statisticFragment = new StatisticFragment();
+                return statisticFragment;
             case 4:
-                // settings fragment
-                SettingsFragment settingsFragment = new SettingsFragment();
-                return settingsFragment;
+                TablesFragment tablesFragment = new TablesFragment();
+                return tablesFragment;
+            case 5:
+                DrinksFragment drinksFragment = new DrinksFragment();
+                return drinksFragment;
+            case 6:
+                UsersFragment usersFragment = new UsersFragment();
+                return usersFragment;
             default:
                 return new HomeFragment();
         }
@@ -244,28 +245,36 @@ public class HomeActivity extends AppCompatActivity {
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_ORDER;
                         break;
-                    case R.id.nav_movies:
+                    case R.id.nav_orderHistory:
                         navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
+                        CURRENT_TAG = TAG_ORDERHISTORY;
                         break;
-                    case R.id.nav_notifications:
+                    case R.id.nav_statistic:
                         navItemIndex = 3;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
+                        CURRENT_TAG = TAG_STATISTIC;
                         break;
-                    case R.id.nav_settings:
+                    case R.id.nav_tables:
                         navItemIndex = 4;
-                        CURRENT_TAG = TAG_SETTINGS;
+                        CURRENT_TAG = TAG_TABLES;
                         break;
-                    case R.id.nav_about_us:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(HomeActivity.this, AboutUsActivity.class));
-                        drawer.closeDrawers();
-                        return true;
-                    case R.id.nav_privacy_policy:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class));
-                        drawer.closeDrawers();
-                        return true;
+                    case R.id.nav_drinks:
+                        navItemIndex = 5;
+                        CURRENT_TAG = TAG_DRINKS;
+                        break;
+                    case R.id.nav_users:
+                        navItemIndex = 6;
+                        CURRENT_TAG = TAG_USERS;
+                        break;
+//                    case R.id.nav_about_us:
+//                        // launch new intent instead of loading fragment
+//                        startActivity(new Intent(HomeActivity.this, AboutUsActivity.class));
+//                        drawer.closeDrawers();
+//                        return true;
+//                    case R.id.nav_privacy_policy:
+//                        // launch new intent instead of loading fragment
+//                        startActivity(new Intent(HomeActivity.this, PrivacyPolicyActivity.class));
+//                        drawer.closeDrawers();
+//                        return true;
                     default:
                         navItemIndex = 0;
                 }
@@ -339,10 +348,6 @@ public class HomeActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.main, menu);
         }
 
-        // when fragment is notifications, load the menu created for notifications
-        if (navItemIndex == 3) {
-            getMenuInflater().inflate(R.menu.notifications, menu);
-        }
         return true;
     }
 
@@ -357,18 +362,6 @@ public class HomeActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
             return true;
-        }
-
-        // user is in notifications fragment
-        // and selected 'Mark all as Read'
-        if (id == R.id.action_mark_all_read) {
-            Toast.makeText(getApplicationContext(), "All notifications marked as read!", Toast.LENGTH_LONG).show();
-        }
-
-        // user is in notifications fragment
-        // and selected 'Clear All'
-        if (id == R.id.action_clear_notifications) {
-            Toast.makeText(getApplicationContext(), "Clear all notifications!", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);

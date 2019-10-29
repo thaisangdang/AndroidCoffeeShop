@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.SettingsFragment">
+    tools:context=".fragment.OrderHistoryFragment">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:alpha="0.3"
-        android:src="@drawable/ic_settings_black_24dp" />
+        android:src="@drawable/ic_history_black_24dp" />
 
 </FrameLayout>

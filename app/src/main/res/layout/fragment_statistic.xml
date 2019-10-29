@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.MoviesFragment">
+    tools:context=".fragment.StatisticFragment">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:alpha="0.3"
-        android:src="@drawable/ic_local_movies_black_24dp" />
+        android:src="@drawable/icons8_total_sales_1_96px" />
 
 </FrameLayout>
