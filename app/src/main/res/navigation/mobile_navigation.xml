@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="iuh.doan.coffeeshop.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_order"
+        android:name="iuh.doan.coffeeshop.ui.order.OrderFragment"
+        android:label="@string/menu_order"
+        tools:layout="@layout/fragment_order" />
+
+    <fragment
+        android:id="@+id/nav_orderHistory"
+        android:name="iuh.doan.coffeeshop.ui.orderhistory.OrderHistoryFragment"
+        android:label="@string/menu_orderHistory"
+        tools:layout="@layout/fragment_orderhistory" />
+
+    <fragment
+        android:id="@+id/nav_statistic"
+        android:name="iuh.doan.coffeeshop.ui.statistic.StatisticFragment"
+        android:label="@string/menu_statistic"
+        tools:layout="@layout/fragment_statistic" />
+
+    <fragment
+        android:id="@+id/nav_drinks"
+        android:name="iuh.doan.coffeeshop.ui.drinks.DrinksFragment"
+        android:label="@string/menu_drinks"
+        tools:layout="@layout/fragment_drinks" />
+
+    <fragment
+        android:id="@+id/nav_accounts"
+        android:name="iuh.doan.coffeeshop.ui.accounts.AccountsFragment"
+        android:label="@string/menu_accounts"
+        tools:layout="@layout/fragment_accounts" />
+
+    <fragment
+        android:id="@+id/nav_tables"
+        android:name="iuh.doan.coffeeshop.ui.tables.TablesFragment"
+        android:label="@string/menu_tables"
+        tools:layout="@layout/fragment_tables" />
+
+    <fragment
+        android:id="@+id/nav_changePassword"
+        android:name="iuh.doan.coffeeshop.ui.changepassword.ChangePasswordFragment"
+        android:label="@string/menu_changePassword"
+        tools:layout="@layout/fragment_changepassword" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="iuh.doan.coffeeshop.ui.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
+
+</navigation>

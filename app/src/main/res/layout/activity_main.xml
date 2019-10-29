@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/coffeeshop_background"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/coffelogo"
+            android:contentDescription="@string/todo" />
+
+        <TextView
+            android:id="@+id/txtSlogan"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/slogan"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"></TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<!--        <info.hoang8f.widget.FButton-->
+<!--            android:id="@+id/btnSignUpOnMainActivity"-->
+<!--            android:text="@string/signUp"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            fbutton:shadowColor="@android:color/black"-->
+<!--            fbutton:shadowEnabled="true"-->
+<!--            fbutton:shadowHeight="5dp"-->
+<!--            fbutton:cornerRadius="10dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@android:color/holo_blue_light"/>-->
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/btnSignInOnMainActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/holo_green_light"
+            android:text="@string/signIn"
+            android:textColor="@android:color/white"
+            fbutton:cornerRadius="10dp"
+            fbutton:shadowColor="@android:color/black"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
