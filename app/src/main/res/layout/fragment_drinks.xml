@@ -1,14 +1,35 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.DrinksFragment">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:alpha="0.3"
-        android:src="@drawable/ic_local_bar_black_24dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/buttonNewDrink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/holo_green_light"
+            android:shadowColor="@android:color/black"
+            android:text="Thêm nước/món"
+            android:textColor="@android:color/white"
+            app:cornerRadius="10dp"
+            app:shadowEnabled="true"
+            app:shadowHeight="5dp"></info.hoang8f.widget.FButton>
+
+        <ListView
+            android:id="@+id/listViewDrink"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </FrameLayout>

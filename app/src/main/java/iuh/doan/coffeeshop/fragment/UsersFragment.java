@@ -129,6 +129,9 @@ public class UsersFragment extends Fragment {
 
     // TODO: Load data form firebase to listview
     private void loadListView() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please waiting");
+        progressDialog.show();
         tableUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -140,6 +143,7 @@ public class UsersFragment extends Fragment {
                     userArrayList.add(user);
                 }
                 userAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override

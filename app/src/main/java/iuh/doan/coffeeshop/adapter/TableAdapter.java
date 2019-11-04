@@ -10,15 +10,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import iuh.doan.coffeeshop.R;
-import iuh.doan.coffeeshop.model.User;
+import iuh.doan.coffeeshop.model.Table;
 
-public class UserAdapter extends ArrayAdapter<User> {
+public class TableAdapter extends ArrayAdapter<Table> {
 
     Activity context;
     int resource;
-    List<User> objects;
+    List<Table> objects;
 
-    public UserAdapter(Activity context, int resource, List<User> objects) {
+    public TableAdapter(Activity context, int resource, List<Table> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -30,11 +30,13 @@ public class UserAdapter extends ArrayAdapter<User> {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.resource, null);
 
-        TextView textViewUsername = item.findViewById(R.id.textViewUsernameOnListViewUsers);
+        TextView textIdOnListViewTables = item.findViewById(R.id.textSoBanOnListViewTables);
+        TextView textMoTaOnListViewTables = item.findViewById(R.id.textMoTaOnListViewTables);
 
-        final User user = this.objects.get(position);
+        final Table table = this.objects.get(position);
 
-        textViewUsername.setText(user.getName());
+        textIdOnListViewTables.setText(String.valueOf(table.getSoBan()));
+        textMoTaOnListViewTables.setText(table.getMoTa());
 
         return item;
     }
