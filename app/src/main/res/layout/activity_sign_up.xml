@@ -67,7 +67,7 @@
     </LinearLayout>
 
     <info.hoang8f.widget.FButton
-        android:id="@+id/btnSignUpOnSignUpActivity"
+        android:id="@+id/buttonNewUser"
         android:text="@string/signUp"
         android:textColor="@android:color/white"
         android:layout_marginRight="8dp"

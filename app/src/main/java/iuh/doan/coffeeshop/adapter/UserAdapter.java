@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+import iuh.doan.coffeeshop.HomeActivity;
 import iuh.doan.coffeeshop.R;
 import iuh.doan.coffeeshop.model.User;
 
@@ -21,50 +24,26 @@ public class UserAdapter extends ArrayAdapter<User> {
 
     Activity context;
     int resource;
-//    List<User> users;
+    List<User> objects;
 
-    public UserAdapter(Activity context, int resource) {
-        super(context, resource);
+    public UserAdapter(Activity context, int resource, List<User> objects) {
+        super(context, resource, objects);
         this.context = context;
         this.resource = resource;
-//        this.users = users;
+        this.objects = objects;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = this.context.getLayoutInflater();
         View item = inflater.inflate(this.resource, null);
 
         TextView textViewUsername = item.findViewById(R.id.textViewUsernameOnListViewUsers);
-        Button buttonEdit = item.findViewById(R.id.buttonEditOnListViewUsers);
-        Button buttonDelete = item.findViewById(R.id.buttonDeleteOnListViewUsers);
 
-//        final User user = this.users.get(position);
+        final User user = this.objects.get(position);
 
-        final User user = getItem(position);
         textViewUsername.setText(user.getName());
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edit(user);
-            }
-        });
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete(user);
-            }
-        });
 
         return item;
-    }
-
-    private void delete(User user) {
-
-    }
-
-    private void edit(User user) {
-
     }
 }

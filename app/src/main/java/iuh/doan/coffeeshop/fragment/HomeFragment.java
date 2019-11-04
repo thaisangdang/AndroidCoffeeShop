@@ -8,9 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.navigation.NavigationView;
+
+import iuh.doan.coffeeshop.HomeActivity;
 import iuh.doan.coffeeshop.R;
 
 import static iuh.doan.coffeeshop.HomeActivity.CURRENT_TAG;
@@ -76,12 +81,89 @@ public class HomeFragment extends Fragment {
         buttonGetOrderFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new Fragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                        android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, "order");
-                fragmentTransaction.commitAllowingStateLoss();
+                OrderFragment orderFragment = new OrderFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, orderFragment, orderFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Order");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(1).setChecked(true);
+                HomeActivity.navItemIndex = 1;
+            }
+        });
+
+        Button buttonGetOrderHistoryFragment = rootView.findViewById(R.id.buttonOrderHistoryMenu);
+        buttonGetOrderHistoryFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, orderHistoryFragment, orderHistoryFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Lịch sử Order");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(2).setChecked(true);
+                HomeActivity.navItemIndex = 2;
+            }
+        });
+
+        Button buttonGetStatisticFragment = rootView.findViewById(R.id.buttonStatisticMenu);
+        buttonGetStatisticFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StatisticFragment statisticFragment = new StatisticFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, statisticFragment, statisticFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Thống kê");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(3).setChecked(true);
+                HomeActivity.navItemIndex = 3;
+            }
+        });
+
+        Button buttonGetTableFragment = rootView.findViewById(R.id.buttonTablesMenu);
+        buttonGetTableFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TablesFragment tablesFragment = new TablesFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, tablesFragment, tablesFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Danh sách bàn");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(4).setChecked(true);
+                HomeActivity.navItemIndex = 4;
+            }
+        });
+
+        Button buttonGetDrinkFragment = rootView.findViewById(R.id.buttonDrinksMenu);
+        buttonGetDrinkFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrinksFragment drinksFragment = new DrinksFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, drinksFragment, drinksFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Danh sách Nước/Món");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(5).setChecked(true);
+                HomeActivity.navItemIndex = 6;
+            }
+        });
+
+        Button buttonGetUserFragment = rootView.findViewById(R.id.buttonUsersMenu);
+        buttonGetUserFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UsersFragment usersFragment = new UsersFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, usersFragment, usersFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Danh sách tài khoản");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(6).setChecked(true);
+                HomeActivity.navItemIndex = 6;
             }
         });
 

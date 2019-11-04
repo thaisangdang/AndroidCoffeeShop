@@ -51,4 +51,9 @@
     <string name="action_logout">Logout</string>
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="chi_ti_t">Chi tiết</string>
+    <string name="ch_nh_s_a">Chỉnh sửa</string>
+    <string name="x_a">Xóa</string>
+    <string name="ng">Đóng</string>
+    <string name="t_o_t_i_kho_n_m_i">Tạo tài khoản mới</string>
 </resources>

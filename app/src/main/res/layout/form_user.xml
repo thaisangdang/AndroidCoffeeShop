@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextPhoneOnUserForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Nhập số điện thoại"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editTextUsernameOnUserForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Nhập username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextPasswordOnUserForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Nhập password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextPassword2OnUserForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Nhập lại password"
+        android:inputType="textPassword" />
+</LinearLayout>

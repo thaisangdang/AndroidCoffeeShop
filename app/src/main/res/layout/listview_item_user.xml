@@ -15,24 +15,23 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
+            android:padding="10dp"
             android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="18dp" />
 
-        <ImageButton
-            android:id="@+id/buttonEditOnListViewUsers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icons8_edit_property_48px" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/buttonEditOnListViewUsers"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            app:srcCompat="@drawable/icons8_edit_property_36px" />-->
 
-        <ImageButton
-            android:id="@+id/buttonDeleteOnListViewUsers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/icons8_cancel_48px" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/buttonDeleteOnListViewUsers"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            app:srcCompat="@drawable/icons8_cancel_36px" />-->
     </LinearLayout>
 
     <View

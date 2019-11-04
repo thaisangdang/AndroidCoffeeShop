@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuItemDetails"
+        android:title="@string/chi_ti_t" />
+    <item
+        android:id="@+id/menuItemEdit"
+        android:title="@string/ch_nh_s_a" />
+    <item
+        android:id="@+id/menuItemDelete"
+        android:title="@string/x_a" />
+    <item
+        android:id="@+id/menuItemClose"
+        android:title="@string/ng" />
+</menu>

@@ -1,15 +1,39 @@
 package iuh.doan.coffeeshop.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import info.hoang8f.widget.FButton;
 import iuh.doan.coffeeshop.R;
+import iuh.doan.coffeeshop.adapter.UserAdapter;
+import iuh.doan.coffeeshop.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +44,7 @@ import iuh.doan.coffeeshop.R;
  * create an instance of this fragment.
  */
 public class UsersFragment extends Fragment {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +55,10 @@ public class UsersFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ListView listView;
+    UserAdapter userAdapter;
+    ArrayList<User> userArrayList;
 
     public UsersFragment() {
         // Required empty public constructor
@@ -66,7 +95,89 @@ public class UsersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_users, container, false);
+
+        // initial listView
+        listView = rootView.findViewById(R.id.listViewUser);
+        userArrayList = new ArrayList<>();
+        userAdapter = new UserAdapter(getActivity(), R.layout.listview_item_user, userArrayList);
+        listView.setAdapter(userAdapter);
+        registerForContextMenu(listView);
+        loadListView();
+
+        // initial buttons
+        FButton buttonNewUser = rootView.findViewById(R.id.buttonNewUser);
+        buttonNewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newUser();
+            }
+        });
+        return rootView;
+    }
+
+    private void loadListView() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("user");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    user.setId(snapshot.getKey());
+                    userArrayList.add(user);
+                }
+                userAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void newUser() {
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View form = layoutInflater.inflate(R.layout.form_user, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle("Thêm tài khoản");
+        alertDialogBuilder.setView(form);
+
+        EditText editTextPhone = form.findViewById(R.id.editTextPhoneOnUserForm);
+        EditText editTextUsername = form.findViewById(R.id.editTextUsernameOnUserForm);
+        EditText editTextPassword = form.findViewById(R.id.editTextPasswordOnUserForm);
+        EditText editTextPassword2 = form.findViewById(R.id.editTextPassword2OnUserForm);
+
+        alertDialogBuilder.setPositiveButton("Lưu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+            getActivity().getMenuInflater().inflate(R.menu.listview_item_action, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menuItemDetails) {
+            AdapterView.AdapterContextMenuInfo adapterContextMenuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            int index = adapterContextMenuInfo.position;
+            Toast.makeText(getActivity(),"details: " + userAdapter.getItem(index).toString(), Toast.LENGTH_LONG).show();
+        }
+        return true;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
