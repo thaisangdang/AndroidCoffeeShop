@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Nhập username"
+        android:hint="Nhập tên nhân viên"
         android:inputType="textPersonName" />
 
     <EditText
@@ -39,4 +39,5 @@
         android:ems="10"
         android:hint="Nhập lại password"
         android:inputType="textPassword" />
+
 </LinearLayout>

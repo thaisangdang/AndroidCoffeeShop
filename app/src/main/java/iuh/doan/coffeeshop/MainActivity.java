@@ -12,7 +12,7 @@ import info.hoang8f.widget.FButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    FButton btnSignIn, btnSignUp;
+    FButton btnSignIn;
     TextView txtSlogan;
 
     @Override
@@ -21,13 +21,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnSignIn = this.findViewById(R.id.btnSignInOnMainActivity);
-//        btnSignUp = this.findViewById(R.id.btnSignUpOnMainActivity);
-
         txtSlogan = this.findViewById(R.id.txtSlogan);
-
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/NABILA.TTF");
         txtSlogan.setTypeface(typeface);
-
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,14 +31,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        btnSignUp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 }

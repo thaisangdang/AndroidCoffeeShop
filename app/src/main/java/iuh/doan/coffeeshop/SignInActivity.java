@@ -45,7 +45,8 @@ public class SignInActivity extends AppCompatActivity {
                 progressDialog.setMessage("Please waiting");
                 progressDialog.show();
 
-                table_user.addValueEventListener(new ValueEventListener() {
+                // chổ này phải để single nếu ko tạo user nó sẽ quay lui về đây
+                table_user.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // check if user not exist in database
@@ -55,7 +56,6 @@ public class SignInActivity extends AppCompatActivity {
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
                             user.setId(dataSnapshot.getKey());
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
-                                Toast.makeText(SignInActivity.this, "Sign in successfully!", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                                 AuthenHelper.currentUser = user;
                                 startActivity(intent);
