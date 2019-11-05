@@ -118,8 +118,8 @@ public class EditOrderFragment extends Fragment {
         // TODO: initial other components
         editTextOrderNote = rootView.findViewById(R.id.editTextOrderNote);
         editTextOrderNote.setText(OrderFragment.orderSelected.getNote());
-        FButton buttonOrder = rootView.findViewById(R.id.buttonSave);
-        buttonOrder.setOnClickListener(new View.OnClickListener() {
+        FButton buttonSave = rootView.findViewById(R.id.buttonSave);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 order();
@@ -129,7 +129,32 @@ public class EditOrderFragment extends Fragment {
         TextView textViewTitle = rootView.findViewById(R.id.textViewTitle);
         textViewTitle.setText("Bàn số " + mParam1);
 
+        FButton buttonTinhTien = rootView.findViewById(R.id.buttonTinhTien);
+        buttonTinhTien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tinhTien();
+            }
+        });
+
         return rootView;
+    }
+
+    private void tinhTien() {
+        tableOrder.child(OrderFragment.orderSelected.getMa()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Order order = dataSnapshot.getValue(Order.class);
+                order.setStatus("paid");
+                tableOrder.child(OrderFragment.orderSelected.getMa()).setValue(order);
+                updateTableStatus("available");
+                Toast.makeText(getActivity(), "Đã tính tiền", Toast.LENGTH_LONG).show();
+                openOrderFragment();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void order() {
@@ -141,7 +166,6 @@ public class EditOrderFragment extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     tableOrder.child(order.getMa()).setValue(order);
-                    updateTableStatus();
                     Toast.makeText(getActivity(), "Cập nhật thành công", Toast.LENGTH_LONG).show();
                     openOrderFragment();
                 }
@@ -163,12 +187,12 @@ public class EditOrderFragment extends Fragment {
         HomeActivity.navItemIndex = 1;
     }
 
-    private void updateTableStatus() {
+    private void updateTableStatus(final String status) {
         tableBan.child(mParam1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Table table = dataSnapshot.getValue(Table.class);
-                table.setStatus("unavailable");
+                table.setStatus(status);
                 tableBan.child(mParam1).setValue(table);
             }
             @Override

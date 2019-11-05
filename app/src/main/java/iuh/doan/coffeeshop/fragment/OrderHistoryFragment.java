@@ -1,15 +1,35 @@
 package iuh.doan.coffeeshop.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import info.hoang8f.widget.FButton;
+import iuh.doan.coffeeshop.HomeActivity;
 import iuh.doan.coffeeshop.R;
+import iuh.doan.coffeeshop.adapter.OrderAdapter;
+import iuh.doan.coffeeshop.model.Order;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,8 +51,20 @@ public class OrderHistoryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    // TODO: Initial components
+    private ListView listView;
+    private OrderAdapter orderAdapter;
+    private ArrayList<Order> orderArrayList;
+    public static Order orderSelected;
+
+    // TODO: Initial data
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference tableOrder;
+
     public OrderHistoryFragment() {
         // Required empty public constructor
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        tableOrder = firebaseDatabase.getReference("order");
     }
 
     /**
@@ -65,11 +97,75 @@ public class OrderHistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // TODO: Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_order, container, false);
 
-        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+        // TODO: Initial listView
+        listView = rootView.findViewById(R.id.listViewOrder);
+        orderArrayList = new ArrayList<>();
+        orderAdapter = new OrderAdapter(getActivity(), R.layout.listview_item_order, orderArrayList);
+        listView.setAdapter(orderAdapter);
+        registerForContextMenu(listView);
+        loadListView();
+        getActivity().findViewById(R.id.fab).setVisibility(View.INVISIBLE);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                orderSelected = orderAdapter.getItem(position);
+                details(orderSelected);
+            }
+        });
 
-        return inflater.inflate(R.layout.fragment_orderhistory, container, false);
+        // TODO: initial buttons
+        FButton buttonNewOrder = rootView.findViewById(R.id.buttonNewOrder);
+        buttonNewOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newOrder();
+            }
+        });
+
+        return rootView;
+    }
+
+    private void loadListView() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please waiting");
+        progressDialog.show();
+        tableOrder.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderArrayList.clear();
+                orderAdapter.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Order order = snapshot.getValue(Order.class);
+                    if (order.getStatus().equals("paid")) {
+                        orderArrayList.add(order);
+                    }
+                }
+                orderAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void newOrder() {
+        ChooseTableFragment chooseTableFragment = new ChooseTableFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, chooseTableFragment, chooseTableFragment.getTag()).commit();
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Tạo Order");
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(1).setChecked(true);
+        HomeActivity.navItemIndex = 1;
+    }
+
+    private void details(Order order) {
+        Toast.makeText(getActivity(), order.toString(), Toast.LENGTH_LONG).show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

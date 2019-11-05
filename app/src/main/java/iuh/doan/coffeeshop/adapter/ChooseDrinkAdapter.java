@@ -100,6 +100,7 @@ public class ChooseDrinkAdapter extends ArrayAdapter<OrderDetails> {
                 }
             }
         });
+
         return item;
     }
 }

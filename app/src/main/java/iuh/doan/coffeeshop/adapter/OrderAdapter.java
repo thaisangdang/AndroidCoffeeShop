@@ -51,9 +51,9 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
         textStatusOnListViewOrders.setText(order.getStatus());
         if (order.getStatus().equals("unpaid")) {
-            textStatusOnListViewOrders.setTextColor(Color.rgb(231,76,60));
-        } else {
             textStatusOnListViewOrders.setTextColor(Color.rgb(46,204,113));
+        } else {
+            textStatusOnListViewOrders.setTextColor(Color.rgb(231,76,60));
         }
 
         return item;
