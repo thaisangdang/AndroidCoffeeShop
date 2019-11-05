@@ -133,7 +133,6 @@ public class ChooseDrinksFragment extends Fragment {
     }
 
     private void order() {
-
         final Order order = getOrder();
         if (order == null) {
             Toast.makeText(getActivity(), "Chưa chọn nước/món", Toast.LENGTH_LONG).show();
@@ -144,6 +143,7 @@ public class ChooseDrinksFragment extends Fragment {
                     tableOrder.child(order.getMa()).setValue(order);
                     updateTableStatus();
                     Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_LONG).show();
+                    openOrderFragment();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -156,6 +156,17 @@ public class ChooseDrinksFragment extends Fragment {
 //      Toast.makeText(getActivity(), chooseDrinkAdapter.getItem(0).toString(), Toast.LENGTH_LONG).show(); // OK
 //        Toast.makeText(getActivity(), orderDetailsArrayList.get(0).toString(), Toast.LENGTH_LONG).show(); // OK
 
+    }
+
+    private void openOrderFragment() {
+        OrderFragment orderFragment = new OrderFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, orderFragment, orderFragment.getTag()).commit();
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Order");
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        navigationView.getMenu().getItem(1).setChecked(true);
+        HomeActivity.navItemIndex = 1;
     }
 
     private void updateTableStatus() {
@@ -196,7 +207,7 @@ public class ChooseDrinksFragment extends Fragment {
     }
 
     private String getCurrentTimeStamp() {
-        long timeStamp = System.currentTimeMillis()/1000;
+        long timeStamp = System.currentTimeMillis();
         return String.valueOf(timeStamp);
     }
 

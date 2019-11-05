@@ -109,8 +109,6 @@ public class ChooseTableFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getActivity(), tableAdapter.getItem(position).toString(), Toast.LENGTH_LONG).show();
-
                 long soBan = tableAdapter.getItem(position).getSoBan();
                 ChooseDrinksFragment chooseDrinksFragment = ChooseDrinksFragment.newInstance(String.valueOf(soBan), "");
                 FragmentManager fragmentManager = getFragmentManager();

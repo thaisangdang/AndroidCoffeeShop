@@ -45,9 +45,9 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         textSoBanOnListViewOrders.setText("Bàn " + order.getMaBan());
         textTotalCostOnListViewOrders.setText(order.getTotalCost()+"đ");
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-        String dateString = formatter.format(new Date(Long.parseLong(order.getCreatedTime())));
-        textCreatedTimeOnListViewOrders.setText(dateString);
+        SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
+        Date date = new Date(Long.parseLong(order.getCreatedTime()));
+        textCreatedTimeOnListViewOrders.setText(sf.format(date));
 
         textStatusOnListViewOrders.setText(order.getStatus());
         if (order.getStatus().equals("unpaid")) {

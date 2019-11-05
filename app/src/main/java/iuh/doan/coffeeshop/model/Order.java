@@ -2,12 +2,10 @@ package iuh.doan.coffeeshop.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class Order implements Serializable {
 
-//    private HashMap<String, Integer> drinks;
     private String ma;
     private String maBan;
     private String createdTime;
@@ -96,6 +94,7 @@ public class Order implements Serializable {
                 ", createdTime='" + createdTime + '\'' +
                 ", note='" + note + '\'' +
                 ", status='" + status + '\'' +
+                ", drinks=" + drinks +
                 ", totalCost=" + totalCost +
                 '}';
     }
