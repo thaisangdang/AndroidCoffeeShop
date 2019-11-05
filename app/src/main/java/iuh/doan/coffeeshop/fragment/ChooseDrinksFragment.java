@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import info.hoang8f.widget.FButton;
@@ -31,7 +32,9 @@ import iuh.doan.coffeeshop.HomeActivity;
 import iuh.doan.coffeeshop.R;
 import iuh.doan.coffeeshop.adapter.ChooseDrinkAdapter;
 import iuh.doan.coffeeshop.model.Drink;
+import iuh.doan.coffeeshop.model.Order;
 import iuh.doan.coffeeshop.model.OrderDetails;
+import iuh.doan.coffeeshop.model.Table;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,17 +60,19 @@ public class ChooseDrinksFragment extends Fragment {
     private ListView listView;
     private ChooseDrinkAdapter chooseDrinkAdapter;
     private ArrayList<OrderDetails> orderDetailsArrayList;
+    private ArrayList<Drink> drinkArrayList;
     private EditText editTextOrderNote;
 
     // TODO: Initial data
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference tableDrink, tableOrder;
+    private DatabaseReference tableDrink, tableOrder, tableBan;
 
     public ChooseDrinksFragment() {
         // Required empty public constructor
         firebaseDatabase = FirebaseDatabase.getInstance();
         tableDrink = firebaseDatabase.getReference("drink");
         tableOrder = firebaseDatabase.getReference("order");
+        tableBan = firebaseDatabase.getReference("table");
     }
 
     /**
@@ -106,12 +111,13 @@ public class ChooseDrinksFragment extends Fragment {
         // TODO: Initial listView
         listView = rootView.findViewById(R.id.listViewChooseDrink);
         orderDetailsArrayList = new ArrayList<>();
+        drinkArrayList = new ArrayList<>();
         chooseDrinkAdapter = new ChooseDrinkAdapter(getActivity(), R.layout.listview_item_chooosedrink, orderDetailsArrayList);
         listView.setAdapter(chooseDrinkAdapter);
         loadListView();
 
         // TODO: initial other components
-        EditText editTextOrderNote = rootView.findViewById(R.id.editTextOrderNote);
+        editTextOrderNote = rootView.findViewById(R.id.editTextOrderNote);
         FButton buttonOrder = rootView.findViewById(R.id.buttonOrder);
         buttonOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +134,70 @@ public class ChooseDrinksFragment extends Fragment {
 
     private void order() {
 
+        final Order order = getOrder();
+        if (order == null) {
+            Toast.makeText(getActivity(), "Chưa chọn nước/món", Toast.LENGTH_LONG).show();
+        } else {
+            tableOrder.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    tableOrder.child(order.getMa()).setValue(order);
+                    updateTableStatus();
+                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_LONG).show();
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
+
+//        Toast.makeText(getActivity(), order.toString(), Toast.LENGTH_LONG).show(); // OK
+
+//      Toast.makeText(getActivity(), chooseDrinkAdapter.getItem(0).toString(), Toast.LENGTH_LONG).show(); // OK
+//        Toast.makeText(getActivity(), orderDetailsArrayList.get(0).toString(), Toast.LENGTH_LONG).show(); // OK
+
+    }
+
+    private void updateTableStatus() {
+        tableBan.child(mParam1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Table table = dataSnapshot.getValue(Table.class);
+                table.setStatus("unavailable");
+                tableBan.child(mParam1).setValue(table);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private Order getOrder() {
+        Order order = new Order();
+        String currentTime = getCurrentTimeStamp();
+        order.setMa(currentTime);
+        order.setMaBan(mParam1);
+        order.setCreatedTime(currentTime);
+        order.setNote(editTextOrderNote.getText().toString());
+        order.setStatus("unpaid");
+        order.setDrinks(orderDetailsArrayList);
+        // tổng tiền
+        long totalCost = 0;
+        for (OrderDetails orderDetails: orderDetailsArrayList) {
+            int index = orderDetailsArrayList.indexOf(orderDetails);
+            long price = drinkArrayList.get(index).getGia();
+            totalCost += price*orderDetails.getNum();
+        }
+        if (totalCost == 0) {
+            return null;
+        }
+        order.setTotalCost(totalCost);
+        return order;
+    }
+
+    private String getCurrentTimeStamp() {
+        long timeStamp = System.currentTimeMillis()/1000;
+        return String.valueOf(timeStamp);
     }
 
     private void loadListView() {
@@ -143,6 +213,9 @@ public class ChooseDrinksFragment extends Fragment {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     OrderDetails orderDetails = new OrderDetails(snapshot.getKey(), 0);
                     orderDetailsArrayList.add(orderDetails);
+                    Drink drink = snapshot.getValue(Drink.class);
+                    drink.setMa(snapshot.getKey());
+                    drinkArrayList.add(drink);
                 }
                 chooseDrinkAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();

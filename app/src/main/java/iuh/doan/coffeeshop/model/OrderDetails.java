@@ -7,6 +7,9 @@ public class OrderDetails implements Serializable {
     private String drinkId;
     private int num;
 
+    public OrderDetails() {
+    }
+
     public OrderDetails(String drinkId, int num) {
         this.drinkId = drinkId;
         this.num = num;

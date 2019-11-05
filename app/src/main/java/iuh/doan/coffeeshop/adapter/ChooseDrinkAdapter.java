@@ -57,17 +57,19 @@ public class ChooseDrinkAdapter extends ArrayAdapter<OrderDetails> {
         ImageButton imageButtonAddDrink = item.findViewById(R.id.imageButtonAddDrink);
 
         final OrderDetails orderDetails = this.objects.get(position);
+
         if (orderDetails.getNum() > 0) {
             item.setBackgroundColor(Color.rgb(255,245,157));
         }
+
+        textViewDrinkCount.setText(String.valueOf(orderDetails.getNum()));
         tableDrink.child(orderDetails.getDrinkId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Drink drink = dataSnapshot.getValue(Drink.class);
-                textViewDrinkID.setText("Mã: " + orderDetails.getDrinkId());
+                textViewDrinkID.setText("Mã: " + dataSnapshot.getKey());
                 textViewDrinkName.setText(drink.getTen());
                 textViewDrinkPrice.setText("Giá: " + drink.getGia()+"đ");
-                textViewDrinkCount.setText(String.valueOf(orderDetails.getNum()));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -79,6 +81,7 @@ public class ChooseDrinkAdapter extends ArrayAdapter<OrderDetails> {
             public void onClick(View v) {
                 int count = Integer.parseInt(textViewDrinkCount.getText().toString());
                 count++;
+                orderDetails.setNum(count);
                 textViewDrinkCount.setText(String.valueOf(count));
                 item.setBackgroundColor(Color.rgb(255,245,157));
             }
@@ -89,6 +92,7 @@ public class ChooseDrinkAdapter extends ArrayAdapter<OrderDetails> {
                 int count = Integer.parseInt(textViewDrinkCount.getText().toString());
                 if (count > 0){
                     count--;
+                    orderDetails.setNum(count);
                     textViewDrinkCount.setText(String.valueOf(count));
                     if (count == 0) {
                         item.setBackgroundColor(Color.rgb(250,250,250));

@@ -7,25 +7,16 @@ import java.util.Objects;
 
 public class Order implements Serializable {
 
+//    private HashMap<String, Integer> drinks;
     private String ma;
     private String maBan;
     private String createdTime;
-    private long totalCost;
-    private HashMap<String, Integer> drinks;
     private String note;
     private String status;
+    private ArrayList<OrderDetails> drinks;
+    private long totalCost;
 
     public Order() {
-    }
-
-    public Order(String ma, String maBan, String createdTime, long totalCost, HashMap<String, Integer> drinks, String note, String status) {
-        this.ma = ma;
-        this.maBan = maBan;
-        this.createdTime = createdTime;
-        this.totalCost = totalCost;
-        this.drinks = drinks;
-        this.note = note;
-        this.status = status;
     }
 
     public String getMa() {
@@ -60,11 +51,11 @@ public class Order implements Serializable {
         this.totalCost = totalCost;
     }
 
-    public HashMap<String, Integer> getDrinks() {
+    public ArrayList<OrderDetails> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(HashMap<String, Integer> drinks) {
+    public void setDrinks(ArrayList<OrderDetails> drinks) {
         this.drinks = drinks;
     }
 
@@ -103,10 +94,9 @@ public class Order implements Serializable {
                 "ma='" + ma + '\'' +
                 ", maBan='" + maBan + '\'' +
                 ", createdTime='" + createdTime + '\'' +
-                ", totalCost=" + totalCost +
-                ", drinks=" + drinks +
                 ", note='" + note + '\'' +
                 ", status='" + status + '\'' +
+                ", totalCost=" + totalCost +
                 '}';
     }
 }
