@@ -6,30 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".fragment.OrderFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <info.hoang8f.widget.FButton
-            android:id="@+id/buttonNewOrder"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@android:color/holo_green_light"
-            android:shadowColor="@android:color/black"
-            android:text="Tạo Order mới"
-            android:textColor="@android:color/white"
-            app:cornerRadius="10dp"
-            app:shadowEnabled="true"
-            app:shadowHeight="5dp"></info.hoang8f.widget.FButton>
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Chọn bàn"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
         <ListView
-            android:id="@+id/listViewOrder"
+            android:id="@+id/listViewChooseTable"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

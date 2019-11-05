@@ -212,7 +212,7 @@ public class TablesFragment extends Fragment {
             Toast.makeText(getActivity(), "Mô tả không được để trống", Toast.LENGTH_LONG).show();
             editTextMoTa.requestFocus();
         } else {
-            Table table = new Table(Long.parseLong(soBan), moTa);
+            Table table = new Table(Long.parseLong(soBan), moTa, "available");
             return table;
         }
         return null;

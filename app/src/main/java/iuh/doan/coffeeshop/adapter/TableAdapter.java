@@ -1,6 +1,7 @@
 package iuh.doan.coffeeshop.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +32,20 @@ public class TableAdapter extends ArrayAdapter<Table> {
         View item = inflater.inflate(this.resource, null);
 
         TextView textIdOnListViewTables = item.findViewById(R.id.textSoBanOnListViewTables);
+        TextView textStatusOnListViewTables = item.findViewById(R.id.textStatusOnListViewTables);
         TextView textMoTaOnListViewTables = item.findViewById(R.id.textMoTaOnListViewTables);
 
         final Table table = this.objects.get(position);
 
         textIdOnListViewTables.setText(String.valueOf(table.getSoBan()));
+        textStatusOnListViewTables.setText(table.getStatus());
         textMoTaOnListViewTables.setText(table.getMoTa());
+
+        if (table.getStatus().equals("available")) {
+            textStatusOnListViewTables.setTextColor(Color.rgb(46,204,113));
+        } else {
+            textStatusOnListViewTables.setTextColor(Color.rgb(231,76,60));
+        }
 
         return item;
     }

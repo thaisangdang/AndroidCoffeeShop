@@ -7,13 +7,15 @@ public class Table implements Serializable {
 
     private long soBan;
     private String moTa;
+    private String status;
 
     public Table() {
     }
 
-    public Table(long soBan, String moTa) {
+    public Table(long soBan, String moTa, String status) {
         this.soBan = soBan;
         this.moTa = moTa;
+        this.status = status;
     }
 
     public long getSoBan() {
@@ -30,6 +32,14 @@ public class Table implements Serializable {
 
     public void setMoTa(String moTa) {
         this.moTa = moTa;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -50,6 +60,7 @@ public class Table implements Serializable {
         return "Table{" +
                 "soBan=" + soBan +
                 ", moTa='" + moTa + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

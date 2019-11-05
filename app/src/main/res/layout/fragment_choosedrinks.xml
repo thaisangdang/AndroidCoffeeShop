@@ -12,8 +12,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/menu_order"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
         <info.hoang8f.widget.FButton
-            android:id="@+id/buttonNewOrder"
+            android:id="@+id/buttonNewUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

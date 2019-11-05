@@ -7,24 +7,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/textSoBanOnListViewTables"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
             android:text="TextView"
-            android:textSize="18dp"
-            android:textColor="@android:color/holo_blue_dark"/>
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/textMoTaOnListViewTables"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:text="TextView"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/textStatusOnListViewTables"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="TextView"
             android:textSize="14dp" />
 

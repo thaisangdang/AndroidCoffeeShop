@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import iuh.doan.coffeeshop.fragment.ChooseTableFragment;
 import iuh.doan.coffeeshop.fragment.DrinksFragment;
 import iuh.doan.coffeeshop.fragment.HomeFragment;
 import iuh.doan.coffeeshop.fragment.OrderHistoryFragment;
@@ -98,9 +99,9 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                OrderFragment orderFragment = new OrderFragment();
+                ChooseTableFragment chooseTableFragment = new ChooseTableFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame, orderFragment, orderFragment.getTag());
+                fragmentTransaction.replace(R.id.frame, chooseTableFragment, chooseTableFragment.getTag());
                 fragmentTransaction.commitAllowingStateLoss();
                 toolbar.setTitle("Order");
                 navItemIndex = 1;

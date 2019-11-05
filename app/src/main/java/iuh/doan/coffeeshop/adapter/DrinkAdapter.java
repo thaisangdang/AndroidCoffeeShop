@@ -42,7 +42,7 @@ public class DrinkAdapter extends ArrayAdapter<Drink> {
 
         textViewMaOnListViewDrinks.setText("Mã: " + drink.getMa());
         textViewTenOnListViewDrinks.setText(drink.getTen());
-        textViewGiaOnListViewDrinks.setText("Giá: " + String.valueOf(drink.getGia()) + "VNĐ");
+        textViewGiaOnListViewDrinks.setText(drink.getGia()+"đ");
 
         return item;
     }
