@@ -113,6 +113,7 @@ public class EditOrderFragment extends Fragment {
         drinkArrayList = new ArrayList<>();
         chooseDrinkAdapter = new ChooseDrinkAdapter(getActivity(), R.layout.listview_item_chooosedrink, orderDetailsArrayList);
         listView.setAdapter(chooseDrinkAdapter);
+        loadListView();
 
         // TODO: initial other components
         editTextOrderNote = rootView.findViewById(R.id.editTextOrderNote);
@@ -141,7 +142,7 @@ public class EditOrderFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     tableOrder.child(order.getMa()).setValue(order);
                     updateTableStatus();
-                    Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Cập nhật thành công", Toast.LENGTH_LONG).show();
                     openOrderFragment();
                 }
                 @Override
@@ -177,14 +178,8 @@ public class EditOrderFragment extends Fragment {
     }
 
     private Order getOrder() {
-        Order order = new Order();
-        String currentTime = getCurrentTimeStamp();
-        order.setMa(currentTime);
-        order.setMaBan(mParam1);
-        order.setCreatedTime(currentTime);
-        order.setNote(editTextOrderNote.getText().toString());
-        order.setStatus("unpaid");
-        order.setDrinks(orderDetailsArrayList);
+        OrderFragment.orderSelected.setNote(editTextOrderNote.getText().toString());
+        OrderFragment.orderSelected.setDrinks(orderDetailsArrayList);
         // tổng tiền
         long totalCost = 0;
         for (OrderDetails orderDetails: orderDetailsArrayList) {
@@ -195,13 +190,30 @@ public class EditOrderFragment extends Fragment {
         if (totalCost == 0) {
             return null;
         }
-        order.setTotalCost(totalCost);
-        return order;
+        OrderFragment.orderSelected.setTotalCost(totalCost);
+        return OrderFragment.orderSelected;
     }
 
     private String getCurrentTimeStamp() {
         long timeStamp = System.currentTimeMillis();
         return String.valueOf(timeStamp);
+    }
+
+    private void loadListView() {
+        tableDrink.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Drink drink = snapshot.getValue(Drink.class);
+                    drink.setMa(snapshot.getKey());
+                    drinkArrayList.add(drink);
+                }
+                chooseDrinkAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
