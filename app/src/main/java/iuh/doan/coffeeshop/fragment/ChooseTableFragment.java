@@ -12,8 +12,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import iuh.doan.coffeeshop.HomeActivity;
 import iuh.doan.coffeeshop.R;
 import iuh.doan.coffeeshop.adapter.TableAdapter;
 import iuh.doan.coffeeshop.model.Table;
@@ -105,9 +109,21 @@ public class ChooseTableFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), tableAdapter.getItem(position).toString(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), tableAdapter.getItem(position).toString(), Toast.LENGTH_LONG).show();
+
+                long soBan = tableAdapter.getItem(position).getSoBan();
+                ChooseDrinksFragment chooseDrinksFragment = ChooseDrinksFragment.newInstance(String.valueOf(soBan), "");
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, chooseDrinksFragment, chooseDrinksFragment.getTag()).commit();
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setTitle("Tạo Order");
+                NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(1).setChecked(true);
+                HomeActivity.navItemIndex = 1;
             }
         });
+
+        getActivity().findViewById(R.id.fab).setVisibility(View.INVISIBLE);
 
         return rootView;
     }
@@ -121,7 +137,7 @@ public class ChooseTableFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 tableArrayList.clear();
                 tableAdapter.clear();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Table table = snapshot.getValue(Table.class);
                     if (table.getStatus().equals("available")) {
                         tableArrayList.add(table);
@@ -130,6 +146,7 @@ public class ChooseTableFragment extends Fragment {
                 tableAdapter.notifyDataSetChanged();
                 progressDialog.dismiss();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }

@@ -118,6 +118,8 @@ public class OrderFragment extends Fragment {
             }
         });
 
+        getActivity().findViewById(R.id.fab).setVisibility(View.INVISIBLE);
+
         return rootView;
     }
 

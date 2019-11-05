@@ -1,15 +1,37 @@
 package iuh.doan.coffeeshop.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import info.hoang8f.widget.FButton;
+import iuh.doan.coffeeshop.HomeActivity;
 import iuh.doan.coffeeshop.R;
+import iuh.doan.coffeeshop.adapter.ChooseDrinkAdapter;
+import iuh.doan.coffeeshop.model.Drink;
+import iuh.doan.coffeeshop.model.OrderDetails;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,8 +53,21 @@ public class ChooseDrinksFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    // TODO: Initial components
+    private ListView listView;
+    private ChooseDrinkAdapter chooseDrinkAdapter;
+    private ArrayList<OrderDetails> orderDetailsArrayList;
+    private EditText editTextOrderNote;
+
+    // TODO: Initial data
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference tableDrink, tableOrder;
+
     public ChooseDrinksFragment() {
         // Required empty public constructor
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        tableDrink = firebaseDatabase.getReference("drink");
+        tableOrder = firebaseDatabase.getReference("order");
     }
 
     /**
@@ -65,8 +100,57 @@ public class ChooseDrinksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        // TODO: Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_choosedrinks, container, false);
+
+        // TODO: Initial listView
+        listView = rootView.findViewById(R.id.listViewChooseDrink);
+        orderDetailsArrayList = new ArrayList<>();
+        chooseDrinkAdapter = new ChooseDrinkAdapter(getActivity(), R.layout.listview_item_chooosedrink, orderDetailsArrayList);
+        listView.setAdapter(chooseDrinkAdapter);
+        loadListView();
+
+        // TODO: initial other components
+        EditText editTextOrderNote = rootView.findViewById(R.id.editTextOrderNote);
+        FButton buttonOrder = rootView.findViewById(R.id.buttonOrder);
+        buttonOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order();
+            }
+        });
+        getActivity().findViewById(R.id.fab).setVisibility(View.INVISIBLE);
+        TextView textViewTitle = rootView.findViewById(R.id.textViewTitle);
+        textViewTitle.setText("Bàn số " + mParam1);
+
+        return rootView;
+    }
+
+    private void order() {
+
+    }
+
+    private void loadListView() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please waiting");
+        progressDialog.show();
+        tableDrink.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderDetailsArrayList.clear();
+                chooseDrinkAdapter.clear();
+                // Nút thêm sẽ lấy theo bảng drink, nút cập nhật sẽ lấy theo bảng order
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    OrderDetails orderDetails = new OrderDetails(snapshot.getKey(), 0);
+                    orderDetailsArrayList.add(orderDetails);
+                }
+                chooseDrinkAdapter.notifyDataSetChanged();
+                progressDialog.dismiss();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

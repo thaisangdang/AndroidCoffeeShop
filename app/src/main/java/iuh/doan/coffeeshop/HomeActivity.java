@@ -25,6 +25,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
+import iuh.doan.coffeeshop.fragment.ChooseDrinksFragment;
 import iuh.doan.coffeeshop.fragment.ChooseTableFragment;
 import iuh.doan.coffeeshop.fragment.DrinksFragment;
 import iuh.doan.coffeeshop.fragment.HomeFragment;
@@ -329,7 +332,6 @@ public class HomeActivity extends AppCompatActivity {
             drawer.closeDrawers();
             return;
         }
-
         // This code loads home fragment when back key is pressed
         // when user is in other fragment than home
         if (shouldLoadHomeFragOnBackPress) {
@@ -340,6 +342,20 @@ public class HomeActivity extends AppCompatActivity {
                 CURRENT_TAG = TAG_HOME;
                 loadHomeFragment();
                 return;
+            }
+        }
+
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        for(Fragment f : fragmentList) {
+            if(f instanceof ChooseDrinksFragment) {
+                ChooseTableFragment chooseTableFragment = new ChooseTableFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame, chooseTableFragment, chooseTableFragment.getTag()).commit();
+                Toolbar toolbar = this.findViewById(R.id.toolbar);
+                toolbar.setTitle("Tạo Order");
+                NavigationView navigationView = this.findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(1).setChecked(true);
+                HomeActivity.navItemIndex = 1;
             }
         }
 

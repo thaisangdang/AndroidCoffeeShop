@@ -124,6 +124,8 @@ public class UsersFragment extends Fragment {
             }
         });
 
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+
         return rootView;
     }
 

@@ -128,6 +128,8 @@ public class DrinksFragment extends Fragment {
             }
         });
 
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+
         return rootView;
     }
 

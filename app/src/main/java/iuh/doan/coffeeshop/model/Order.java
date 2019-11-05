@@ -2,6 +2,7 @@ package iuh.doan.coffeeshop.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Order implements Serializable {
@@ -10,18 +11,20 @@ public class Order implements Serializable {
     private String maBan;
     private String createdTime;
     private long totalCost;
-    private ArrayList<String> drinks; // lưu mã nước/món
+    private HashMap<String, Integer> drinks;
+    private String note;
     private String status;
 
     public Order() {
     }
 
-    public Order(String ma, String maBan, String createdTime, long totalCost, ArrayList<String> drinks, String status) {
+    public Order(String ma, String maBan, String createdTime, long totalCost, HashMap<String, Integer> drinks, String note, String status) {
         this.ma = ma;
         this.maBan = maBan;
         this.createdTime = createdTime;
         this.totalCost = totalCost;
         this.drinks = drinks;
+        this.note = note;
         this.status = status;
     }
 
@@ -57,11 +60,11 @@ public class Order implements Serializable {
         this.totalCost = totalCost;
     }
 
-    public ArrayList<String> getDrinks() {
+    public HashMap<String, Integer> getDrinks() {
         return drinks;
     }
 
-    public void setDrinks(ArrayList<String> drinks) {
+    public void setDrinks(HashMap<String, Integer> drinks) {
         this.drinks = drinks;
     }
 
@@ -71,6 +74,14 @@ public class Order implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override
@@ -94,8 +105,8 @@ public class Order implements Serializable {
                 ", createdTime='" + createdTime + '\'' +
                 ", totalCost=" + totalCost +
                 ", drinks=" + drinks +
+                ", note='" + note + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }
-
 }

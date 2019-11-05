@@ -66,6 +66,9 @@ public class StatisticFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+
         return inflater.inflate(R.layout.fragment_statistic, container, false);
     }
 

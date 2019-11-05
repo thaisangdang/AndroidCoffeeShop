@@ -122,6 +122,8 @@ public class TablesFragment extends Fragment {
             }
         });
 
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
+
         return rootView;
     }
 
